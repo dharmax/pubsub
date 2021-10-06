@@ -1,0 +1,28 @@
+{
+  "name": "@dharmax/pubsub",
+  "version": "1.0.1",
+  "description": "Powerful, compact pub-sub",
+  "main": "dist/pubsub.js",
+  "types": "dist/pubsub.d.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "npx tsc",
+    "prepublish": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dharmax/pubsub.git"
+  },
+  "keywords": [
+    "pubsub","pub-sub","dispatcher","events"
+  ],
+  "author": "Avi Tshuva, dharmax",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dharmax/pubsub/issues"
+  },
+  "homepage": "https://github.com/dharmax/field-assist",
+  "devDependencies": {
+    "typescript": "^4.0.5"
+  }
+}
