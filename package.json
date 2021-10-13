@@ -1,6 +1,6 @@
 {
   "name": "@dharmax/pubsub",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "Powerful, compact pub-sub",
   "main": "dist/pubsub.js",
   "types": "dist/pubsub.d.ts",
@@ -21,7 +21,7 @@
   "bugs": {
     "url": "https://github.com/dharmax/pubsub/issues"
   },
-  "homepage": "https://github.com/dharmax/field-assist",
+  "homepage": "https://github.com/dharmax/pubsub",
   "devDependencies": {
     "typescript": "^4.0.5"
   }

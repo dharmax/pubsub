@@ -33,7 +33,7 @@ let Trace = false
  * Normally, you won't need to use this class, but only its default
  * instance, which is also the default export of this module.
  */
-export class Pubsub {
+export class PubSub {
     keyCounter = 1;
     topics: any = {};
 
@@ -72,7 +72,7 @@ export class Pubsub {
         }
     }
 
-    publish(origin: string, topic: string, verb: string, data?: any) {
+    publish(origin: string, topic: string, verb: string, data?: any):void {
         const logUnreceived = topic.startsWith("!");
         if (logUnreceived) topic = topic.substr(1);
 
@@ -119,6 +119,12 @@ export class Pubsub {
         return t[verb] || (t[verb] = {})
     }
 
+    /**
+     * Listens to events.
+     * @param event given in the form of topic:verb while verb may be '*'
+     * @param handler
+     * @return a handle, by which you can cancel the listening (using the off method here)
+     */
     on(event: string, handler: (event: PubSubEvent, data: any) => boolean | void) {
         let [topic, verb] = event.split(":")
         verb = verb || "*"
@@ -129,6 +135,11 @@ export class Pubsub {
         return this.on_(h, topic, verb)
     }
 
+    /**
+     * listens to an event and after handling it, automatically cancels the listening
+     * @param event
+     * @param handler
+     */
     once(event: string, handler: (event: PubSubEvent, data: any) => boolean | void) {
         let [topic, verb] = event.split(":");
         verb = verb || "*";
@@ -139,16 +150,34 @@ export class Pubsub {
         return this.once_(h, topic, verb);
     }
 
+    /**
+     * Cancels a subscription to an event
+     * @param subscription
+     */
     off(subscription: IPubSubHandle) {
         return delete subscription.slot[subscription.key];
     }
 
+    /**
+     * send an event asynchronously
+     * @param sender
+     * @param eventOrTopic you can use the short form (topic:verb) or the long form, with separate parameters
+     * @param dataOrVerb
+     * @param data
+     */
     triggerAsync(sender: string, eventOrTopic: string, dataOrVerb: string | any, data?: any): void {
 
         // @ts-ignore
         setTimeout(() => this.trigger(...arguments), 0)
     }
 
+    /**
+     * send an event
+     * @param sender
+     * @param eventOrTopic you can use the short form (topic:verb) or the long form, with separate parameters
+     * @param dataOrVerb
+     * @param data
+     */
     trigger(sender: string, eventOrTopic: string, dataOrVerb: string | any, data?: any): void {
         if (eventOrTopic.includes(':')) {
             let [topic, verb] = eventOrTopic.split(":");
@@ -161,4 +190,4 @@ export class Pubsub {
     }
 }
 
-export default new Pubsub('Main Dispatcher')
+export default new PubSub('Main Dispatcher')
